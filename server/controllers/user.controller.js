@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import AppError from "../utils/error.util.js";
-
+import cloudinary from "cloudinary";
+import fs from "fs/promises";
 const cookieOptions = {
   maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
   httpOnly: true,
@@ -36,6 +37,30 @@ const register = async (req, res, next) => {
     );
   }
 
+  if (req.file) {
+    try {
+      const result = await cloudinary.v2.uploader.upload(req.file.path, {
+        folder: "lms",
+        width: 250,
+        height: 250,
+        gravity: "faces",
+        crop: "fill",
+      });
+
+      if (result) {
+        user.avatar.public_id = result.public_id;
+        user.avatar.secure_url = result.secure_url;
+
+        //Remove file from local server
+        fs.rm(`uploads/${req.file.filename}`);
+      }
+    } catch (error) {
+      return next(new AppError(error || "File not uploaded, try again", 500));
+    }
+  }
+
+  await user.save();
+
   user.password = undefined;
 
   const token = await user.generateJWTToken();
@@ -49,7 +74,6 @@ const register = async (req, res, next) => {
   });
   // error: postman me raw json data ja raha hai but not form data
 };
-
 
 const login = async (req, res, next) => {
   try {
@@ -80,7 +104,6 @@ const login = async (req, res, next) => {
   }
 };
 
-
 const logout = (req, res) => {
   res.cookie("token", null, {
     secure: true,
@@ -94,7 +117,7 @@ const logout = (req, res) => {
   });
 };
 
-const getProfile = async (req, res,next) => {
+const getProfile = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const user = await User.findById(userId);

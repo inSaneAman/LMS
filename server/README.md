@@ -11,10 +11,37 @@
 
 
 # Features
--Login/SignUp
-    -SignIn/SignUp Form
-    -Redirect to Browse Form
--Browse(after authentication)
-    - Buy Courses
-    - Third party payment
-    - Access courses
+-For STUDENT
+    -User
+        -Register
+        -Login/Logout
+        -Reset Password
+        -View Profile
+        -Update Profile
+    
+    -Course
+        -List Courses    
+        -Buy Courses
+    
+    -Payment
+        -Subscribe
+
+
+-For ADMIN
+    -User
+        -Register
+        -Login/Logout
+        -Reset Password
+        -Profile
+        -Update Profile
+    
+    -Course
+        -List
+        -View
+        -Create
+        -Edit
+        -Delete
+    
+    -Payment
+        -View Payments
+        

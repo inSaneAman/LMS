@@ -6,12 +6,11 @@ import {
   register,
 } from "../controllers/user.controller.js";
 import { isLoggedIn } from "../middlewares/auth.middleware.js";
-import multer from "multer";
+import upload from "../middlewares/multer.middleware.js";
 
 const router = Router();
-const upload = multer(); // Use multer for parsing FormData                 
-router.post("/register", upload.none(),register);
-router.post("/login",upload.none(), login);
+router.post("/register", upload.single("avatar"), register);
+router.post("/login", upload.none(), login);
 router.get("/logout", logout);
 router.get("/user-profile", isLoggedIn, getProfile);
 
