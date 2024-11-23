@@ -8,6 +8,8 @@
     -Login
     -Logout
     -View user profile
+    -Forgot password
+    -Reset password (using noemailer)
 
 
 # Features
@@ -15,7 +17,7 @@
     -User
         -Register
         -Login/Logout
-        -Reset Password
+        -Reset Password(Using nodemailer)
         -View Profile
         -Update Profile
     
@@ -31,7 +33,7 @@
     -User
         -Register
         -Login/Logout
-        -Reset Password
+        -Reset Password(Using nodemailer)
         -Profile
         -Update Profile
     
