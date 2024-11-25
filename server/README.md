@@ -11,6 +11,10 @@
     -Forgot password
     -Reset password (using noemailer)
 
+-Course controllers
+    -View all courses 
+    -Get courses by id (If logged in)
+
 
 # Features
 -For STUDENT
