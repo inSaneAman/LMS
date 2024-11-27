@@ -1,18 +1,28 @@
 import AppError from "../utils/error.util.js";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
 const isLoggedIn = async (req, res, next) => {
-  const { token } = req.cookies;
+    const { token } = req.cookies;
 
-  if (!token) {
-    return next(new AppError("Unauthenticated, please login again", 401));
-  }
+    if (!token) {
+        return next(new AppError("Unauthenticated, please login again", 401));
+    }
 
-  const userDetails = await jwt.verify(token, process.env.JWT_SECRET);
+    const userDetails = await jwt.verify(token, process.env.JWT_SECRET);
 
-  req.user = userDetails;
+    req.user = userDetails;
 
-  next();
+    next();
 };
 
-export { isLoggedIn };
+const authorizedRoles =
+    (...roles) =>
+    async (req, res, next) => {
+        const currentUserRole = req.user.role;
+        if (!roles.includes(currentUserRole)) {
+            return next(new AppError("Access permission denied", 403));
+        }
+        next();
+    };
+
+export { isLoggedIn, authorizedRoles };
