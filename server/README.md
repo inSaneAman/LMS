@@ -14,7 +14,10 @@
 -Course controllers
     -View all courses 
     -Get courses by id (If logged in)
-
+    -Create courses (Only ADMIN)
+    -Update courses (Only ADMIN)
+    -Delete courses (Only ADMIN)
+    -Add lectures (Only ADMIN)
 
 # Features
 -For STUDENT
