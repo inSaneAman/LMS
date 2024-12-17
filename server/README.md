@@ -19,6 +19,11 @@
     -Delete courses (Only ADMIN)
     -Add lectures (Only ADMIN)
 
+-Payment
+    -Generate payment key
+    -Enable transactions
+    -Integrate Razorpay API
+
 # Features
 -For STUDENT
     -User
